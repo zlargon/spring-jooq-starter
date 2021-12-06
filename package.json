@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "start": "mvn spring-boot:run",
+    "up": "docker compose up -d",
+    "stop": "docker compose stop",
+    "down": "docker compose down",
+    "log": "docker compose logs -f",
+    "ps": "docker ps"
+  }
+}
