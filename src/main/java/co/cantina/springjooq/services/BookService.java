@@ -17,16 +17,25 @@ public class BookService {
 
 	@Autowired
 	private ModelMapper mapper;
-			
+
 	@Autowired
 	DSLContext dsl;
 
 	public List<Book> getBooks() {
 		return dsl
-				.selectFrom(Tables.BOOKS)
+				.select(Tables.BOOKS.TITLE)
+				.from(Tables.BOOKS)
 				.fetch()
 				.stream()
-				.map(e -> mapper.map(e, Book.class))
+				.map(record -> mapper.map(record, Book.class))
 				.collect(Collectors.toList());
+	}
+
+	public Book addBooks(Book book) {
+		dsl.insertInto(Tables.BOOKS, Tables.BOOKS.TITLE)
+			.values(book.getTitle())
+			.execute();
+
+		return book;
 	}
 }
