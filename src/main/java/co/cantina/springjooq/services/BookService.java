@@ -23,7 +23,7 @@ public class BookService {
 
 	public List<Book> getBooks() {
 		return dsl
-				.select(Tables.BOOKS.TITLE)
+				.select()
 				.from(Tables.BOOKS)
 				.fetch()
 				.stream()
@@ -32,10 +32,10 @@ public class BookService {
 	}
 
 	public Book addBooks(Book book) {
-		dsl.insertInto(Tables.BOOKS, Tables.BOOKS.TITLE)
-			.values(book.getTitle())
-			.execute();
-
-		return book;
+		return mapper.map(dsl
+		.insertInto(Tables.BOOKS)
+		.set(Tables.BOOKS.TITLE, book.getTitle())
+		.returning()
+		.fetchOne(), Book.class);
 	}
 }
