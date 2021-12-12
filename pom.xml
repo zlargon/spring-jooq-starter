@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>co.cantina</groupId>
@@ -15,7 +14,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.1.0.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
@@ -36,7 +35,6 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>it.ozimov</groupId>
 			<artifactId>yaml-properties-maven-plugin</artifactId>
@@ -68,9 +66,9 @@
 			<version>1.1.3</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.modelmapper.extensions</groupId>
-		    <artifactId>modelmapper-jooq</artifactId>
-		    <version>1.1.3</version>
+			<groupId>org.modelmapper.extensions</groupId>
+			<artifactId>modelmapper-jooq</artifactId>
+			<version>1.1.3</version>
 		</dependency>
 
 		<dependency>
@@ -83,10 +81,13 @@
 
 	<build>
 		<plugins>
+			<!-- spring-boot-maven-plugin -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+			<!-- yaml-properties-maven-plugin -->
 			<plugin>
 				<groupId>it.ozimov</groupId>
 				<artifactId>yaml-properties-maven-plugin</artifactId>
@@ -134,71 +135,49 @@
 				</configuration>
 			</plugin>
 
-
-			<!-- The jOOQ code generator plugin -->
+			<!-- jooq-codegen-maven plugin -->
 			<plugin>
 				<groupId>org.jooq</groupId>
 				<artifactId>jooq-codegen-maven</artifactId>
 
 				<executions>
 					<execution>
-						<id>generate-mysql</id>
 						<phase>generate-sources</phase>
 						<goals>
 							<goal>generate</goal>
 						</goals>
+
 						<configuration>
+							<!-- jdbc config -->
 							<jdbc>
 								<driver>${spring.datasource.driverClassName}</driver>
 								<url>${spring.datasource.url}</url>
 								<user>${spring.datasource.username}</user>
 								<password>${spring.datasource.password}</password>
 							</jdbc>
+
 							<generator>
+								<!-- database options -->
 								<database>
 									<name>org.jooq.meta.mysql.MySQLDatabase</name>
 									<includes>.*</includes>
 									<excludes></excludes>
 									<inputSchema>springjooq</inputSchema>
 								</database>
+
+								<!-- generate options -->
 								<generate>
 									<deprecated>false</deprecated>
 									<instanceFields>true</instanceFields>
 									<pojos>false</pojos>
 								</generate>
+
+								<!-- target -->
 								<target>
 									<packageName>co.cantina.spring.jooq.sample.model</packageName>
 									<directory>target/generated-sources/jooq</directory>
 								</target>
 							</generator>
-						</configuration>
-					</execution>
-				</executions>
-
-				<dependencies>
-					<dependency>
-						<groupId>mysql</groupId>
-						<artifactId>mysql-connector-java</artifactId>
-						<version>8.0.27</version>
-					</dependency>
-				</dependencies>
-
-			</plugin>
-
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>add-source</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>add-source</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>${project.build.directory}/generated-sources/jooq/</source>
-							</sources>
 						</configuration>
 					</execution>
 				</executions>
