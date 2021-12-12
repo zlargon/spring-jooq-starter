@@ -1,5 +1,4 @@
-create table books (
-	id int not null auto_increment, 
-	title varchar(255), 
-	primary key (id)
+CREATE TABLE books (
+  id    SERIAL  NOT NULL PRIMARY KEY,
+  title TEXT    NOT NULL
 );

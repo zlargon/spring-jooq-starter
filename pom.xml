@@ -57,10 +57,10 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- mysql -->
+    <!-- postgresql -->
     <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
       <scope>runtime</scope>
     </dependency>
 
@@ -168,15 +168,15 @@
               <generator>
                 <!-- database options -->
                 <database>
-                  <name>org.jooq.meta.mysql.MySQLDatabase</name>
+                  <name>org.jooq.meta.postgres.PostgresDatabase</name>
                   <includes>.*</includes>
                   <excludes></excludes>
-                  <inputSchema>springjooq</inputSchema>
+                  <inputSchema>spring_demo</inputSchema>
                 </database>
 
                 <!-- generate options -->
                 <generate>
-                  <deprecated>false</deprecated>
+                  <deprecated>true</deprecated>
                   <instanceFields>true</instanceFields>
                   <pojos>false</pojos>
                 </generate>
