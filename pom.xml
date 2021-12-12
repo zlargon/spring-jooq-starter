@@ -36,6 +36,14 @@
 			<artifactId>spring-boot-starter-jooq</artifactId>
 		</dependency>
 
+		<!-- spring-boot-devtools -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+
 		<!-- spring-boot-starter-actuator -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
